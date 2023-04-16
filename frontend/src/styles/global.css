@@ -14,3 +14,6 @@ body {
 button {
   cursor: pointer;
 }
+.bg-block{
+  background: #8284FA;
+}

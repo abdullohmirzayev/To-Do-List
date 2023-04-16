@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Header } from "./components/Header";
 import { Tasks } from "./components/Tasks";
+import Login from "./components/Login";
 
 const LOCAL_STORAGE_KEY = 'todo:tasks';
 
@@ -69,13 +70,15 @@ function App() {
 
   return (
     <>
-      <Header handleAddTask={addTask} />
+      {/* <Header handleAddTask={addTask} />
       <Tasks
         tasks={tasks}
         onDelete={deleteTaskById}
         onComplete={toggleTaskCompletedById}
         onEdit={onEdit}
-      />
+      /> */}
+
+      <Login /> 
     </>
   )
 }
