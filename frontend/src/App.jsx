@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { Header } from "./components/Header";
 import { Tasks } from "./components/Tasks";
 import Login from "./components/Login";
+import Signup from "./components/Signup";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const LOCAL_STORAGE_KEY = 'todo:tasks';
+const LOCAL_STORAGE_KEY = "todo:tasks";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -24,38 +26,36 @@ function App() {
 
   useEffect(() => {
     loadSavedTasks();
-  }, [])
+  }, []);
 
   function addTask(taskTitle) {
-
     if (taskTitle !== "") {
-
     }
 
     if (taskTitle) {
-      setTasksAndSave([...tasks, {
-        id: crypto.randomUUID(),
-        title: taskTitle,
-        isCompleted: false
-      }]);
+      setTasksAndSave([
+        ...tasks,
+        {
+          id: crypto.randomUUID(),
+          title: taskTitle,
+          isCompleted: false,
+        },
+      ]);
     }
   }
 
-
   function deleteTaskById(taskId) {
-    const newTasks = tasks.filter(task => task.id !== taskId);
+    const newTasks = tasks.filter((task) => task.id !== taskId);
     setTasksAndSave(newTasks);
   }
 
-
-
   function toggleTaskCompletedById(taskId) {
-    const newTasks = tasks.map(task => {
+    const newTasks = tasks.map((task) => {
       if (task.id === taskId) {
         return {
           ...task,
-          isCompleted: !task.isCompleted
-        }
+          isCompleted: !task.isCompleted,
+        };
       }
       return task;
     });
@@ -66,10 +66,10 @@ function App() {
     const editTasks = taskList.find((i) => i.id === id);
     setTasks(editTasks.task);
     setEditId(id);
-  }
+  };
 
   return (
-    <>
+    <BrowserRouter>
       {/* <Header handleAddTask={addTask} />
       <Tasks
         tasks={tasks}
@@ -77,10 +77,12 @@ function App() {
         onComplete={toggleTaskCompletedById}
         onEdit={onEdit}
       /> */}
-
-      <Login /> 
-    </>
-  )
+      <Routes>
+        <Route path="/" element={<Login />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
